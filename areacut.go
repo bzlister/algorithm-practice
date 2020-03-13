@@ -22,18 +22,18 @@ func max(nums ...int) int {
 func cut(height, width int) int {
 	opt := 0
 	if mem[height-1][width-1] == 0 {
+		piece := 0
+		for i := 0; i < len(a); i++ {
+			if (a[i] <= width && b[i] <= height) || (a[i] <= height && b[i] <= width) {
+				piece = max(piece, c[i])
+			}
+		}
 		h := 1
 		for loopH := true; loopH; loopH = (h <= height/2) {
 			w := 1
 			for loopW := true; loopW; loopW = (w <= width/2) {
-				piece := -1
-				for i := 0; i < len(a); i++ {
-					if (a[i] <= width && b[i] <= height) || (a[i] <= height && b[i] <= width) {
-						piece = max(piece, c[i])
-					}
-				}
-				vert := -1
-				horz := -1
+				vert := 0
+				horz := 0
 				if height > 1 {
 					vert = cut(h, width) + cut(height-h, width)
 				}
