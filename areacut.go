@@ -24,7 +24,7 @@ func cut(height, width int) int {
 	if mem[height-1][width-1] == 0 {
 		piece := 0
 		for i := 0; i < len(a); i++ {
-			if (a[i] <= width && b[i] <= height) || (a[i] <= height && b[i] <= width) {
+			if (a[i] == width && b[i] == height) || (a[i] == height && b[i] == width) {
 				piece = max(piece, c[i])
 			}
 		}
@@ -41,20 +41,20 @@ func cut(height, width int) int {
 					horz = cut(height, w) + cut(height, width-w)
 				}
 				opt = max(opt, piece, vert, horz)
-				fmt.Printf("Optimal price of %d,%d: %d\n", height, width, opt)
 				w++
 			}
 			h++
 		}
+		fmt.Printf("Optimal price of %d,%d: %d\n", height, width, opt)
 		mem[height-1][width-1] = opt
 	}
 	return mem[height-1][width-1]
 }
 
 func main() {
-	a = []int{2, 2, 3, 3}
-	b = []int{1, 2, 2, 3}
-	c = []int{6, 10, 13, 500}
+	a = []int{1, 2, 2, 3, 3}
+	b = []int{1, 1, 2, 2, 3}
+	c = []int{2, 6, 10, 13, 500}
 	X := 5
 	Y := 5
 	mem = make([][]int, X)
